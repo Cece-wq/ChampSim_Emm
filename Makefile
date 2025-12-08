@@ -13,8 +13,6 @@ override BRANCH_ROOT += $(addsuffix /branch,$(MODULE_ROOT))
 override BTB_ROOT += $(addsuffix /btb,$(MODULE_ROOT))
 override PREFETCH_ROOT += $(addsuffix /prefetcher,$(MODULE_ROOT))
 override REPLACEMENT_ROOT += $(addsuffix /replacement,$(MODULE_ROOT))
-# Add Emissary to the list of replacement policy source files
-REPLACEMENT_POLICY_SRCS += $(ROOT_DIR)/replacement/emissary.cpp
 
 # vcpkg integration
 TRIPLET_DIR = $(patsubst %/,%,$(firstword $(filter-out $(ROOT_DIR)/vcpkg_installed/vcpkg/, $(wildcard $(ROOT_DIR)/vcpkg_installed/*/))))
@@ -43,7 +41,7 @@ maybe_legacy_file = $(if $(filter %/__legacy__,$(wildcard $(dir $1)*)),$(addpref
 # $2 - target directory
 # $3 - unique build id
 migrate = $(patsubst $1/%.cc,$2/%.o,$(join $(dir $4),$(patsubst %main.cc,$3_%main.cc,$(notdir $4))))
-get_object_list = $(call migrate,$1,$2,$3,$(wildcard $1/*.cc) $(wildcard $1/*.cpp) $(call maybe_legacy_file,$1/,legacy_bridge.cc)) $(foreach subdir,$(call ls_dirs,$1),$(call $0,$(subdir),$(patsubst $1/%,$2/%,$(subdir)),$3))
+get_object_list = $(call migrate,$1,$2,$3,$(wildcard $1/*.cc) $(call maybe_legacy_file,$1/,legacy_bridge.cc)) $(foreach subdir,$(call ls_dirs,$1),$(call $0,$(subdir),$(patsubst $1/%,$2/%,$(subdir)),$3))
 
 # Return the trailing portion of a word sequence
 # $1 - the sequence
