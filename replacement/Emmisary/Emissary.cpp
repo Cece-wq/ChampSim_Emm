@@ -12,11 +12,11 @@
 
 // --- 1. Policy Registration (CRITICAL) ---
 // This line links the class name (Emmisary) to the string name in the JSON ("EMMISSARY")
-REGISTER_REPLACEMENT_POLICY(Emmisary, "EMMISSARY")
+REGISTER_REPLACEMENT_POLICY(Emissary, "EMISSARY")
 
 
 // --- 2. Constructor ---
-Emmisary::Emmisary(uint32_t sets, uint32_t ways)
+Emissary::Emissary(uint32_t sets, uint32_t ways)
 {
     // Initialize the 3D vector: [cpu][set][way]
     repl.resize(NUM_CPUS);
@@ -27,7 +27,7 @@ Emmisary::Emmisary(uint32_t sets, uint32_t ways)
 }
 
 // --- 3. Per-Set Initialization ---
-void Emmisary::initialize_replacement(uint32_t set)
+void Emissary::initialize_replacement(uint32_t set)
 {
     // Initialize LRU position to the way index (e.g., way 0 = LRU pos 0, way 7 = LRU pos 7)
     // and set priority to false (low)
@@ -41,7 +41,7 @@ void Emmisary::initialize_replacement(uint32_t set)
 
 // --- 4. Update Replacement State (State Update on Access) ---
 // This uses the modern ChampSim API signature
-void Emmisary::update_replacement_state(uint32_t set, uint32_t way, uint32_t cpu, uint64_t address, uint64_t ip, uint64_t full_address, uint32_t type, bool hit)
+void Emissary::update_replacement_state(uint32_t set, uint32_t way, uint32_t cpu, uint64_t address, uint64_t ip, uint64_t full_address, uint32_t type, bool hit)
 {
     // --- Step A: Update Priority Bit ---
     // The policy's core logic: determine if the accessed block is high priority.
@@ -73,7 +73,7 @@ void Emmisary::update_replacement_state(uint32_t set, uint32_t way, uint32_t cpu
 
 // --- 5. Find Victim (Eviction Decision) ---
 // This uses the modern ChampSim API signature
-uint32_t Emmisary::get_replacement_index(uint32_t set, const std::vector<champsim::champsim_access>& access)
+uint32_t Emissary::get_replacement_index(uint32_t set, const std::vector<champsim::champsim_access>& access)
 {
     // In LLC, accesses are usually merged, but for replacement, we typically assume a single requesting core.
     // If you are simulating a single core, use cpu = 0.
