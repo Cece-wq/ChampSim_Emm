@@ -1,3 +1,4 @@
+#include "replacement.h"
 #include "Emmisary.h"
 #include <algorithm>
 #include <iostream>
