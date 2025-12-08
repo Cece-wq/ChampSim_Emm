@@ -19,10 +19,10 @@ class Emissary : public champsim::replacement::replacement_policy
 {
 public:
     // Constructor must match the base class
-    Emmisary(uint32_t sets, uint32_t ways);
+    Emissary(uint32_t sets, uint32_t ways);
 
     // Virtual destructor
-    virtual ~Emmisary() = default;
+    virtual ~Emissary() = default;
 
     // Required ChampSim API methods
 
