@@ -1,5 +1,5 @@
-#ifndef EMMISARY_H
-#define EMMISARY_H
+#ifndef EMISSARY_H
+#define EMISSARY_H
 
 #include <vector>
 #include <cstdint>
@@ -15,7 +15,7 @@ struct LineInfo {
 };
 
 // Emmisary class definition
-class Emmisary : public champsim::replacement::replacement_policy
+class Emissary : public champsim::replacement::replacement_policy
 {
 public:
     // Constructor must match the base class
